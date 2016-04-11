@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/Convenios"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Convênios" />
+        <item
+            android:id="@+id/Denuncie"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Denúncie!" />
+        <item
+            android:id="@+id/Estatisticas"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Gráficos" />
+
+    </group>
+
+    <item>
+        <menu>
+            <item
+                android:id="@+id/Configuracoes"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Configurações" />
+            <item
+                android:id="@+id/Sobre"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Sobre" />
+        </menu>
+    </item>
+
+</menu>
