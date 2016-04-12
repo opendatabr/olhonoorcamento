@@ -1,0 +1,265 @@
+body{
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    margin-top: 65px; /*Fix fixed navbar*/
+}
+
+/*START MAIN MENU*/
+
+#navbar-brand-logo{
+    width: 90px;
+    background: url('../images/logo.svg') center center;
+    background-size: contain;
+    padding: 0 !important;
+    margin-right: 10px;
+    transition: all .2s ease-in-out;
+}
+
+#navbar-brand-logo:hover{
+    transform: scale(1.2,1.2);
+}
+
+#navbar-main{
+    background: #FFFFFF;
+    border-bottom: 1px solid #F0F0F0;
+    color: #FFFFFF;
+    box-shadow: 0 3px 7px rgba(0,0,0,0.10);
+}
+
+#navbar-main .navbar-nav > .open > a, 
+#navbar-main .navbar-nav > .open > a:hover, 
+#navbar-main .navbar-nav > .open > a:focus {
+    background-color: #EFEFEF !important; 
+}
+
+#navbar-secondary{
+    padding-top: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+#navbar-secondary h1{
+    margin-top: 0;
+    font-size: 28px;
+    font-weight: 300;
+}
+
+#search-dialog{
+    padding-top: 8px;
+}
+
+#headlines{
+    padding-top: 15px;
+    padding-bottom: 0px;
+}
+
+#headlines .item > img{
+    border-radius: 5px;
+    border-bottom: 2px solid #ECECEC;
+}
+
+.box{
+    padding: 22px;
+    border: 1px solid #E6E6E6;
+    border-radius: 5px;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.box > h2 {
+    margin-top: 0px;
+    margin-bottom: 17px;
+    font-size: 17px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.box .bootstrap-table {
+    margin-right: -22px;
+    margin-left: -22px;
+}
+
+#map{
+    height: 100%;
+    max-height: 305px;
+    width: 100%;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.no-side-margin{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#news{
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    box-sizing:border-box;
+    padding-bottom: 15px;
+}
+#news::-webkit-scrollbar {
+    height: 7px;
+}
+#news::-webkit-scrollbar-track {
+    border-radius: 5px;
+}
+#news::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+}
+
+.news-box{
+    max-width: 300px;
+    min-width: 150px;
+    border-radius: 5px;
+    margin: 5px;
+    background: #FFFFFF;
+    border: 1px solid #DDD;
+    padding: 20px;
+    display: inline-block;
+    vertical-align: top;
+    white-space: normal;
+}
+
+.grey{
+    background: #FAFAFB !important;
+}
+
+.support{
+    width: 50px;
+    margin: 15px;
+}
+
+a{
+    cursor: pointer;
+}
+
+.money-wrapper{
+    height: 30px;
+    width: 20px;
+    background: url('../images/money.svg') #E6E6E6 center bottom no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.money-overlay{
+    height: 100%;
+    width: 100%;
+    background: url('../images/money.svg') no-repeat;
+    background-position: bottom center;
+}
+
+.money-value{
+    background: url('../images/money.svg') #990000 center bottom no-repeat;
+    height: 75%;
+    width: 100%;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+#back-to-top{
+    padding: 0;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+#map .fil2:hover{
+    fill: #FFCC00;
+}
+
+/*Candidates Pages*/
+#expenses-pic-wrapper{
+    display: block;
+    min-height: 240px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 10px;
+}
+
+#candidate-profile h3, #candidate-profile h4 {
+   font-weight: 600;
+}
+
+#candidate-profile .tab-pane{
+    padding: 20px;
+}
+
+#profile-pic{
+    width: 80px;
+    height: 107px;
+    object-fit: cover;
+    height: auto;
+    border-radius: 10px;
+    margin-top: -215px;
+    margin-left: 0px;
+}
+
+#expenses-description{
+    font-size: 19px;
+    margin-top: -20px;
+    display: block;
+}
+
+#candidate-data-tabs{
+    padding-top: 20px;
+}
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+    .box .bootstrap-table{
+        margin: 0 auto;
+    }
+}
+
+/* Landscape tablets and medium desktops and smaller */
+@media screen and (max-width: 992px) {
+    #navbar-secondary h1{
+        font-size: 22px;
+    }
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .box .bootstrap-table thead{
+        font-size: 12px;
+    }
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+    #expenses-pic-wrapper canvas{
+        margin-left: -50px;
+    }
+    #profile-pic{
+        margin-top: -190px;
+        margin-left: -138px;
+    }
+    #expenses-description{
+        margin-top: 0px;
+    }
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+    #expenses-pic-wrapper canvas{
+        margin-left: -50px;
+    }
+    #profile-pic{
+        margin-top: -190px;
+        margin-left: -138px;
+    }
+    #expenses-description{
+        margin-top: 0px;
+    }
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+    .box .bootstrap-table thead tr th .th-inner{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}

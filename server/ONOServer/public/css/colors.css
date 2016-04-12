@@ -1,0 +1,119 @@
+html, body {
+    height: calc(100% - 43px);
+}
+
+body{
+	background: url('../images/logo-background.svg') left bottom fixed no-repeat;
+}
+/*Navbar Secondary*/
+#navbar-secondary{
+}
+
+#navbar-secondary > ul > li > a:hover, #navbar-secondary > ul > li > a:focus {
+	background: #0096DC !important;
+	border-bottom: 1px solid #336699 !important;
+	color: #FFFFFF !important;
+}
+
+#navbar-secondary > ul > li > a{
+	border-bottom: 1px solid #ECECEC !important;
+	background: #F0F0F0;
+}
+
+#navbar-secondary > ul{
+	box-shadow: 0px 0px 50px 50px #FFFFFF;
+	background: #FFFFFF;
+}
+
+#navbar-secondary > h1 {
+	color: #428BCA;
+}
+
+.box{
+	border-top: 2px solid #428BCA;
+	border-bottom: 2px solid #52AE51;
+	background: #FFFFFF;
+}
+
+.box > h2 {
+	color: #999999;
+}
+
+.fb-like{
+	margin: 15px 0;
+}
+
+#news::-webkit-scrollbar-track {
+    background-color: #eaeaea;
+    border-left: 1px solid #ccc;
+}
+
+#news::-webkit-scrollbar-thumb {
+    background-color: #428bca;
+}
+
+#news::-webkit-scrollbar-thumb:hover {
+    background-color: #357ebd;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -55px; /* the bottom margin is the negative value of the footer's height */
+}
+
+#footer, #push {
+    height: 55px; /* .push must be the same height as .footer */
+}
+
+#footer{
+	background: #FAFAFB;
+}
+
+/*------------------------------------------------------------------
+[7. Account / .account-container]
+*/
+
+.account-container {
+	display: table;
+}
+
+.account-avatar,
+.account-details {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.account-avatar {
+	padding-right: 1em;
+}
+
+.account-avatar img {
+	width: 55px;
+	height: 76px;
+}
+
+.account-details {
+}
+
+.account-details span {
+	display: block;
+}
+
+.account-details .account-name {
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.account-details .account-role {
+	color: #888;
+}
+
+.account-details .account-actions {
+	color: #BBB;
+}
+
+.account-details a {
+	font-size: 11px;
+}

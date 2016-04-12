@@ -5,5 +5,11 @@
 # Home page
 GET     /                           controllers.Application.index()
 
+GET		/:estado					controllers.Application.showMapa(estado: String)
+GET		/:estado/:cidade			controllers.Application.showMapaCidade(estado: String, cidade: String)
+GET		/convenio/:id				controllers.Application.showConvenio(id: String)
+
+#GET		/extractor					controllers.ExtractorController.processaConvenios()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

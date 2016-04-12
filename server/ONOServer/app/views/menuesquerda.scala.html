@@ -1,0 +1,16 @@
+@(title: Html)(content: Html)
+
+@contentfull = {
+
+		<!--Versão com menu secundário-->
+		<div class="container">
+			<div class="row">
+				
+				@content
+				
+			</div>
+			<!--END MAIN ROW-->
+		</div>
+}
+
+@main(title)(contentfull)
