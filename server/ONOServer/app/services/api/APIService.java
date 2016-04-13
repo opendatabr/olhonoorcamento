@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import models.Convenio;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 
@@ -70,7 +71,8 @@ public class APIService {
 	@Transactional
 	public static HashMap<String,Object> selectDetalhesPlanoAplicacaoPorId(long id){
 		String query = "SELECT id, endereco, nomeNaturezaDespesa, uf, cidade, tipoDespesa, anoConvenio, "
-				+ "anoProposta, situacao, unidadeFornecimento, valorUnitario, valorTotal, qtdItems, descricaoDespesa "
+				+ "anoProposta, situacao, unidadeFornecimento, valorUnitario, valorTotal, qtdItems, "
+				+ "descricaoDespesa, idConvenio "
 				+ "FROM PlanoAplicacao "
 				+ "WHERE id = :id";
     	List<Object> lo = JPA.em().createNativeQuery(query)
@@ -98,8 +100,23 @@ public class APIService {
 			map.put("valorTotal", (Float)itens[11]);
 			map.put("qtdItems", (Float)itens[12]);
 			map.put("descricaoDespesa", (String)itens[13]);
+			map.put("idConvenio", (Integer)itens[14]);
 			
 			return map;
+    	}
+	}
+	
+	@Transactional
+	public static Convenio selectDetalhesConvenioPorId(int id){
+		String query = "FROM Convenio WHERE idConvenio = :id";
+    	List<Convenio> lc = JPA.em().createQuery(query)
+    			.setParameter("id", id)
+    			.getResultList();
+    	
+    	if(lc.isEmpty()){
+    		return null;
+    	}else{
+    		return lc.get(0);
     	}
 	}
 }

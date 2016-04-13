@@ -47,5 +47,18 @@ public class APIController extends Controller {
 		}
 		return badRequest(AdminJson.getMensagem(AdminJson.msgConsulteAPI));
     }
+    
+    @Transactional
+    public static Result convenio(int id) {
+    	response().setContentType("application/json; charset=utf-8");
+		response().setHeader("Access-Control-Allow-Origin","*");
+		response().setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+		try{			
+			return ok(AdminJson.getObject(APIService.selectDetalhesConvenioPorId(id), "Convenio"));
+		}catch(Exception e){
+			Logger.error("ERRO - APIController/convenio():\n"+ e.getMessage());
+		}
+		return badRequest(AdminJson.getMensagem(AdminJson.msgConsulteAPI));
+    }
   
 }

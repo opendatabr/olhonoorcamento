@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Index;
 
 @Entity
@@ -99,9 +100,11 @@ public class Convenio {
 	@Column
 	private String qualificacaoProponente;
 	
+	@JsonIgnore
 	@Column
 	private Date createdAt;
 	
+	@JsonIgnore
 	@Column
 	private Date updatedAt;
 

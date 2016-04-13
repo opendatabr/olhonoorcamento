@@ -14,7 +14,8 @@ GET		/convenio/:id				controllers.Application.showConvenio(id: String)
 ## API ##
 GET		/api						controllers.api.APIController.index()
 GET		/api/mapa/					controllers.api.APIController.mapa()
-GET		/api/planoAplicacao/:id		controllers.api.APIController.planoAplicacao(id: Long)
+GET		/api/planoaplicacao/:id		controllers.api.APIController.planoAplicacao(id: Long)
+GET		/api/convenio/:id			controllers.api.APIController.convenio(id: Integer)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
