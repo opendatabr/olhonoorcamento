@@ -1,0 +1,52 @@
+@(cidade: String)(estado: String)(aplicacoes: List[models.util.EnderecoPagamento])
+@title = {Olho no Orçamento - @cidade, @estado} 
+
+@content = {
+<meta charset="utf-8"/>
+
+<div class="col-md-12">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box" align="center">
+			<h2>Convênios (pagamentos) para a cidade de @cidade - @estado</h2>
+				<iframe src="@routes.MapController.showMapCidade(estado, cidade)" width="100%" height="300px"></iframe><br>
+				<a href="@routes.MapController.showMapCidade(estado, cidade)" target="_blank">Clique AQUI para expandir</a><br>
+			
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box">
+				<h2>@aplicacoes.size() Aplicações de Convênios encontradas</h2>
+				Clique na descrição da aplicação para ver detalhes e ir até o local da mesma
+				<table data-toggle="table" data-page-size="20" data-search="true" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-cache="false">
+				    <thead>
+				        <tr>
+				            <th>Cep</th>
+				            <th>Endereço</th>
+				            <th>Total Recebido</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				    	@for(item <- aplicacoes){
+				    	<tr>
+				    		<td>@item.getCep()</td>
+				    		<td>@item.getEnderecoAjustado()</td>
+				    		<td>@util.Formatador.getDoubleAsMoney( item.getTotal() )</td>
+				    	</tr>
+				    	}
+				    </tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!--END PROFILE-->
+
+}
+
+@menuesquerda(title)(content)

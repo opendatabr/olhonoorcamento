@@ -1,0 +1,40 @@
+@(titulo: String)(cidades: List[Municipio])
+@title = {Olho no Orçamento - Cidades} 
+
+@content = {
+<meta charset="utf-8"/>
+
+<div class="col-md-12">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box">
+				<h2>@cidades.size() Cidades Encontradas</h2>
+				<p>Clique na cidade para ver os convênios e aplicações de recursos na cidade</p>
+				<small>Você pode usar a caixa de pesquisa abaixo para localizar a cidade mais
+				facilmente</small>
+				<table data-toggle="table" data-page-size="20" data-search="true" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-cache="false">
+				    <thead>
+				        <tr>
+				            <th>Cidade</th>
+				            <th>Estado</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				    	@for(c <- cidades){
+				    	<tr>
+				    		<td>
+				    			<a href="@routes.Application.showMapaCidade(c.getSiglaEstado(), c.getNomeMunicipio())">
+				    			@c.getNomeMunicipio()</a></td>
+				    		<td>@c.getSiglaEstado()</td>
+				    	</tr>
+				    	}
+				    </tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+}
+
+@menuesquerda(title)(content)
