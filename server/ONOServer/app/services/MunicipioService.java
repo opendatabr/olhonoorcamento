@@ -116,5 +116,14 @@ public class MunicipioService {
 			return null;
 		}
 	}
+
+	public static List<Municipio> buscaMunicipios(String busca) {
+		String query = "FROM Municipio " +
+				" WHERE codDistrito = 5 " + 
+				" AND nomeMunicipio like '%" + busca + "%'";
+		
+		return JPA.em().createQuery(query)
+			.getResultList();
+	}
 	
 }

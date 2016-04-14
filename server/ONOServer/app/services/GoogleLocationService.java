@@ -17,13 +17,21 @@ import play.libs.F.Promise;
 public class GoogleLocationService {
 	
 	private static final String[] estados = {
-		//"PE", "SP", "DF", "RJ", "MG","AC","AL","AP","AM","BA",
-		//"CE","ES","GO","MA","MT","MS","PA","PB","PR","PI","RN",
+		"PE", "SP", "DF", "RJ", "MG","AC","AL","AP","AM","BA",
+		"CE","ES","GO","MA","MT","MS","PA","PB","PR","PI","RN",
 		"RS","RO","RR","SC","SE","TO"};
 	
+	private static final String[] chaves = {
+		"chave1",
+		"chave2",
+		"chave3",
+		"chave4"
+	};
+	
 	public static ExtractorResults processaLatLongEnderecos(String estado) {
-		List<EnderecoPagamento> enderecos = ConvenioService.buscaEnderecosSemLocalizacao(estado);
-		return processaLatLongEnderecos(enderecos);
+		//List<EnderecoPagamento> enderecos = ConvenioService.buscaEnderecosSemLocalizacao(estado);
+		//return processaLatLongEnderecos(enderecos);
+		return null;
 	}
 	
 	public static ExtractorResults processaLatLongEnderecos() {
@@ -32,27 +40,30 @@ public class GoogleLocationService {
 		ExtractorResults erInner;
 		
 		List<EnderecoPagamento> enderecos;
-		for (int i = 0; i < estados.length; i++){
-			String estado = estados[i];
-			Logger.info("Processando estado + " + estado + " - " + new Date());
-			
-			enderecos =  ConvenioService.buscaEnderecosSemLocalizacao(estado);
-			erInner = processaLatLongEnderecos(enderecos);
-			
-			Logger.info(erInner.toString());
-			er.add(erInner);
+		for (int c = 0; c < chaves.length; c++){
+			String chave = chaves[c];
+			for (int i = 0; i < estados.length; i++){
+				String estado = estados[i];
+				Logger.info("Processando estado + " + estado + " - " + new Date());
+				
+				enderecos =  ConvenioService.buscaEnderecosSemLocalizacao(estado);
+				erInner = processaLatLongEnderecos(enderecos, chave);
+				
+				Logger.info(erInner.toString());
+				er.add(erInner);
+			}
 		}
 		return er;
 	}
 	
-	public static ExtractorResults processaLatLongEnderecos(List<EnderecoPagamento> enderecos) {
+	public static ExtractorResults processaLatLongEnderecos(List<EnderecoPagamento> enderecos, String chave) {
 		ExtractorResults er = new ExtractorResults();
 				
 		for (EnderecoPagamento e: enderecos){
 			er.registros++;
 			String endereco = e.getEnderecoAjustado();
 			
-			org.w3c.dom.Document doc = getMapsInfo(endereco);
+			org.w3c.dom.Document doc = getMapsInfo(endereco, chave);
 			String status = doc.getElementsByTagName("status").item(0).getTextContent();
 			
 			if (status.equals("OK")){
@@ -64,7 +75,7 @@ public class GoogleLocationService {
 				
 				//tentar removendo a ultima palavra. as vezes tem o bairro, que atrapalha
 				endereco = e.getEnderecoAjustado2();
-				doc = getMapsInfo(endereco);			
+				doc = getMapsInfo(endereco, chave);			
 				status = doc.getElementsByTagName("status").item(0).getTextContent();
 				
 				if (status.equals("OK")){
@@ -76,7 +87,7 @@ public class GoogleLocationService {
 				
 					//tentar pelo cep
 					endereco = e.getCep() + ", " + e.getCidade() + ", " + e.getEstado() + ", Brasil";
-					doc = getMapsInfo(endereco);
+					doc = getMapsInfo(endereco, chave);
 					status = doc.getElementsByTagName("status").item(0).getTextContent();
 					
 					if (status.equals("OK")){
@@ -145,14 +156,14 @@ public class GoogleLocationService {
 		
 	}
 
-	private static Document getMapsInfo(String endereco) {
+	private static Document getMapsInfo(String endereco, String chave) {
 		//exemplo: http://maps.googleapis.com/maps/api/geocode/xml?address=antonio%20nogueira&region=br&components=country:BR&sensor=false
 		Promise<WS.Response> response = WS.url("https://maps.googleapis.com/maps/api/geocode/xml")
 		.setQueryParameter("address", endereco)
 		.setQueryParameter("region", "br")
 		.setQueryParameter("components", "country:BR")
 		.setQueryParameter("sensor", "false")
-		
+		.setQueryParameter("key", chave)
 		.get();
 
 		org.w3c.dom.Document doc = response.get().asXml();
@@ -161,6 +172,7 @@ public class GoogleLocationService {
 		return doc;
 	}
 	
+	//Isso foi feito no projeto do EducacaoInteligente. Apenas importei a tabela
 	/*public static void processaLatLongCidades() {
 		Date dataIni = new Date();
 		int count = 0;

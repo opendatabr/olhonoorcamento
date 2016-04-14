@@ -17,16 +17,20 @@ GET			/extractor/localizacao		controllers.ExtractorController.processaLocalizaca
 ###################
 GET     /                           controllers.Application.index()
 
-GET		/:estado					controllers.Application.buscaEstado(estado: String)
-GET		/:estado/:cidade			controllers.Application.showMapaCidade(estado: String, cidade: String)
+GET		/cep/:cep		controllers.Application.showDetalhes(cep: String)
+
 GET		/convenio/:id				controllers.Application.showConvenio(id: String)
 
-GET		/busca/cidade/:cidade		controllers.Application.buscaCidade(cidade: String)
+POST		/busca/cidade				controllers.Application.buscaCidade()
 GET		/busca/convenio/:palavra	controllers.Application.buscaConvenio(palavra: String)
 
+GET		/:estado					controllers.Application.buscaEstado(estado: String)
+GET		/:estado/:cidade			controllers.Application.showMapaCidade(estado: String, cidade: String)
+
 #Maps
+GET		/mapa/cep/:cep				controllers.MapController.showMapEndereco(cep: String)
 GET		/mapa/:estado/:cidade		controllers.MapController.showMapCidade(estado: String, cidade: String)
-GET		/mapa/:estado/:cidade/:endereco		controllers.MapController.showMapAplicacao(estado:String, cidade: String, endereco:String)
+#GET		/mapa/:estado/:cidade/:endereco		controllers.MapController.showMapAplicacao(estado:String, cidade: String, endereco:String)
 
 ## API ##
 GET		/api						controllers.api.APIController.index()

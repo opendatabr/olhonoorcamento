@@ -2,8 +2,11 @@ package services;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import play.Logger;
 import play.db.jpa.JPA;
 
+import models.Convenio;
 import models.EnderecoPagamento;
 import models.PlanoAplicacao;
 
@@ -64,7 +67,6 @@ public class ConvenioService {
 		String query = "FROM EnderecoPagamento " + 
 				"WHERE estado = :estado " +
 				"AND latitude = 0 " +
-				"AND total > 0 " +
 				"ORDER BY total DESC";
 		
 		List<EnderecoPagamento> resultList = JPA.em().createQuery(query)
@@ -129,6 +131,45 @@ public class ConvenioService {
 			e.printStackTrace();
 			return 0;
 		}
+	}
+
+	public static List<Convenio> getConveniosExecutadosEm(String cep) {
+		String query = "FROM Convenio WHERE idConvenio IN " + 
+			"(select distinct idConvenio from PlanoAplicacao where cep =:cep) " +
+			"ORDER BY id DESC";
+		
+		try {
+			List<Convenio> result = JPA.em().createQuery(query)
+					.setParameter("cep", cep)
+					.getResultList();
+			return result;
+		} catch (Exception e){
+			Logger.error("Erro pegando os convenios do CEP selecionado: " + e.getMessage());
+			return new ArrayList<Convenio>();
+		}
+	}
+
+	public static EnderecoPagamento getEndereco(String cep) {
+		String query = "FROM EnderecoPagamento WHERE cep =:cep";
+			
+		List<EnderecoPagamento> results = JPA.em().createQuery(query)
+				.setParameter("cep", cep)
+				.getResultList();
+		if (results.isEmpty()){
+			return null;
+		} else {
+			return results.get(0);
+		}
+	}
+
+	public static List<PlanoAplicacao> getPlanosAplicacao(int idConvenio) {
+		String query = "FROM PlanoAplicacao WHERE idConvenio =:idConvenio";
+		
+		List<PlanoAplicacao> results = JPA.em().createQuery(query)
+				.setParameter("idConvenio", idConvenio)
+				.getResultList();
+		
+		return results;
 	}
 
 }

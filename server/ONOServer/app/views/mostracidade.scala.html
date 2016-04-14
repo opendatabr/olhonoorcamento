@@ -11,7 +11,6 @@
 			<h2>Convênios (pagamentos) para a cidade de @cidade - @estado</h2>
 				<iframe src="@routes.MapController.showMapCidade(estado, cidade)" width="100%" height="300px"></iframe><br>
 				<a href="@routes.MapController.showMapCidade(estado, cidade)" target="_blank">Clique AQUI para expandir</a><br>
-			
 			</div>
 		</div>
 	</div>
@@ -35,9 +34,9 @@
 				    <tbody>
 				    	@for(item <- aplicacoes){
 				    	<tr>
-				    		<td>@item.getCep()</td>
-				    		<td>@item.getEnderecoAjustado()</td>
-				    		<td>@util.Formatador.getDoubleAsMoney( item.getTotal() )</td>
+				    		<td><a href="@routes.Application.showDetalhes(item.getCep())">@item.getCep()</a></td>
+				    		<td><a href="@routes.Application.showDetalhes(item.getCep())">@item.getEnderecoAjustado()</a></td>
+				    		<td>R$ @util.Formatador.getDoubleAsMoney( item.getTotal() )</td>
 				    	</tr>
 				    	}
 				    </tbody>

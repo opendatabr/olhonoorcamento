@@ -37,10 +37,9 @@ public class MapController extends Controller {
 	}
 	
 	@Transactional
-	public static Result showMapAplicacao(String estado, String cidade, String endereco){
-		//Escola escola = new EducacaoService().getEscola(id);
-		//return ok(views.html.mapaescolaindividual.render(escola));
-		return TODO;
+	public static Result showMapEndereco(String cep){
+		EnderecoPagamento ep = ConvenioService.getEndereco(cep);
+		return ok(views.html.mapaenderecoindividual.render(ep));
 	}
 
 }

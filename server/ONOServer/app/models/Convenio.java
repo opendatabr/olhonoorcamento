@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Index;
+
+import services.ConvenioService;
 
 @Entity
 public class Convenio {
@@ -361,6 +365,12 @@ public class Convenio {
 	@PreUpdate
 	public void setUpdatedAt() {
 		this.updatedAt = new Date();
+	}
+	
+	@Transient
+	public List<PlanoAplicacao> getPagamentos(){
+		List<PlanoAplicacao> pagamentos = ConvenioService.getPlanosAplicacao(idConvenio);
+		return pagamentos;
 	}
 	
 }
