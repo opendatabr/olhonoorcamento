@@ -13,7 +13,7 @@
         <item
             android:id="@+id/Denuncie"
             android:icon="@drawable/ic_report_problem_black_24dp"
-            android:title="Denúncie!" />
+            android:title="Denuncie!" />
         <item
             android:id="@+id/Estatisticas"
             android:icon="@drawable/ic_show_chart_black_24dp"

@@ -33,7 +33,7 @@ public class SplashScreenActivity extends FragmentActivity {
         setContentView(R.layout.activity_splash);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.lightPrimaryColor));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorSplash));
         }
         new Handler().postDelayed(new Runnable() {
 

@@ -89,7 +89,7 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
         View v = inflater.inflate(R.layout.fragment_main, container,
                 false);
         context = container.getContext();
-
+        MainActivity.toolbar.setTitle("Despesas");
         mMapView = (MapView) v.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
@@ -169,13 +169,23 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
 
         String Country =add.getCountryName();
         if(Country.equals("Brasil")){
-          
-            String city= add.getLocality();
-            double lat = add.getLatitude();
-            double log =add.getLongitude();
-            LatLng ll = new LatLng(lat,log);
+Log.d("cap",nomeLocal.toUpperCase()+" "+nomeLocal.toUpperCase());
+          if(nomeLocal.toUpperCase().equals(nomeLocal.toUpperCase())){
+              String city= add.getLocality();
+              double lat = add.getLatitude();
+              double log =add.getLongitude();
+              LatLng ll = new LatLng(lat,log);
 
-            posicionaCamera(ll);
+              posicionaCamera(ll,7);
+          }else{
+              String city= add.getLocality();
+              double lat = add.getLatitude();
+              double log =add.getLongitude();
+              LatLng ll = new LatLng(lat,log);
+
+              posicionaCamera(ll,12);
+          }
+
         }else{
             Toast.makeText(getActivity(), "Orçamento apenas do Brasil.", Toast.LENGTH_SHORT).show();
         }
@@ -205,10 +215,10 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
         mGoogleApiClient.connect();
 
     }
-    public void posicionaCamera(LatLng posAtual){
+    public void posicionaCamera(LatLng posAtual,int zoom){
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(posAtual).zoom(12).build();
+                .target(posAtual).zoom(zoom).build();
         googleMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
     }
@@ -240,10 +250,36 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
     @Override
     public void onConnected(Bundle bundle) {
         Log.d(TAG, "onConnected");
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            checkPermission();
+        }else{
+            Location loc = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if(loc != null){
+                Log.d(TAG,"Longitude: "+loc.getLongitude());
+                Log.d(TAG,"Latitude: "+loc.getLatitude());
+                String Local = "Longitude: "+loc.getLongitude() + " Latitude: "+loc.getLatitude();
+                LatLng pos = new LatLng(loc.getLatitude(),loc.getLongitude());
+                posicionaCamera(pos,12);
+                googleMap.addMarker(new MarkerOptions().position(pos).title("teste").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                getLocalEndereco(-8.356447,-46.362305);
+                // sendEmail(Local);
+            }else{
+                Toast.makeText(getActivity(), "Não foi possível obter localização, verifique se GPS ligado e tente novamente.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+
+    }
+    public void checkPermission(){
         String[] permissions = new String[2];
         permissions[0] = Manifest.permission.ACCESS_COARSE_LOCATION;
         permissions[1] =Manifest.permission.ACCESS_FINE_LOCATION;
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+               ) {
             // TODO: Consider calling
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getActivity().requestPermissions(permissions,2);
@@ -251,20 +287,6 @@ public class MainFragment extends Fragment implements GoogleApiClient.Connection
             Log.d(TAG,"erro de permissão");
             Toast.makeText(getActivity(), "Permita-nos obter sua localização.", Toast.LENGTH_LONG).show();
         }
-        Location loc = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if(loc != null){
-            Log.d(TAG,"Longitude: "+loc.getLongitude());
-            Log.d(TAG,"Latitude: "+loc.getLatitude());
-          String Local = "Longitude: "+loc.getLongitude() + " Latitude: "+loc.getLatitude();
-            LatLng pos = new LatLng(loc.getLatitude(),loc.getLongitude());
-            posicionaCamera(pos);
-            googleMap.addMarker(new MarkerOptions().position(pos).title("teste").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            getLocalEndereco(-8.356447,-46.362305);
-           // sendEmail(Local);
-        }else{
-            Toast.makeText(getActivity(), "Não foi possível obter localização, verifique se GPS ligado e tente novamente.", Toast.LENGTH_LONG).show();
-        }
-
     }
 
     @Override

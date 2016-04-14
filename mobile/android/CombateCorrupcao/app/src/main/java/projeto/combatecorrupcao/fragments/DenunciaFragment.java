@@ -1,15 +1,21 @@
 package projeto.combatecorrupcao.fragments;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +34,7 @@ import projeto.combatecorrupcao.R;
  */
 public class DenunciaFragment extends Fragment implements  View.OnClickListener{
 
+    private static final int REQUEST_PERMISSIONS_CODE = 123;
     EditText nome;
     EditText email;
     EditText Descricao;
@@ -103,11 +110,92 @@ public class DenunciaFragment extends Fragment implements  View.OnClickListener{
         }
     }
     private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        String[] permissions = new String[1];
+        permissions[0] = Manifest.permission.CAMERA;
+
+        if ( ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getActivity().requestPermissions(permissions,2);
+            }
+            Log.d(TAG,"erro de permissão");
+            Toast.makeText(getActivity(), "Permita a aplicação utilizar camera.", Toast.LENGTH_LONG).show();
+        }else{
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
         }
+
+
     }
+        // Here, thisActivity is the current activity
+     /*   if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.CAMERA)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.CAMERA},
+                        4);
+
+
+            }
+        }*/
+
+       /* String[] permissions = new String[1];
+        permissions[0] = Manifest.permission.CAMERA;
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.CAMERA)) {
+                    Toast.makeText(getActivity(), "Precisamos de sua permissão para que você utilize sua câmera para tirar foto.", Toast.LENGTH_LONG).show();
+                } else {
+                    // Solicita a permissão
+                    ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.CAMERA},1);
+                }
+               // getActivity().requestPermissions(permissions,0);
+            }
+            Log.d(TAG, "erro de permissão");
+            Toast.makeText(getActivity(), "Permita-nos utilizar a sua câmera.", Toast.LENGTH_LONG).show();
+        }else{
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }*/
+
+    //}
+
+   /* @Override
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        switch( requestCode ){
+            case 1:
+                for( int i = 0; i < permissions.length; i++ ){
+
+                    if( permissions[i].equalsIgnoreCase( Manifest.permission.CAMERA )
+                            && grantResults[i] == PackageManager.PERMISSION_GRANTED ){
+
+                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                        }
+                    }
+                }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }*/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -134,6 +222,7 @@ public class DenunciaFragment extends Fragment implements  View.OnClickListener{
 
         }
     }
+
     public void clearCampos(){
         email.setText("");
         Descricao.setText("");

@@ -16,6 +16,7 @@ import java.util.List;
 
 import projeto.combatecorrupcao.R;
 import projeto.combatecorrupcao.activitys.DetalheConvenioActivity;
+import projeto.combatecorrupcao.activitys.MainActivity;
 import projeto.combatecorrupcao.adapters.ConveniosAdapters;
 import projeto.combatecorrupcao.design.RecyclerViewOnClickListenerHack;
 import projeto.combatecorrupcao.others.ResumoConvenio;
@@ -38,7 +39,9 @@ public class ConveniosFragment extends Fragment implements RecyclerViewOnClickLi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_convenios, container, false);
+        MainActivity.toolbar.setTitle("Convênios");
         mReciRecyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
+
         mReciRecyclerView.setHasFixedSize(true);
         mReciRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

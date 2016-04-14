@@ -18,11 +18,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    repositories{
+    repositories {
 
-            maven {
-                url "https://oss.sonatype.org/content/repositories/snapshots"
-            }
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots"
+        }
         maven { url "https://jitpack.io" }
 
     }
@@ -31,12 +31,12 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    compile project(':volley')
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
     compile 'com.google.android.gms:play-services:8.4.0'
     compile 'com.android.support:support-v4:23.3.0'
-    compile 'com.android.support:recyclerview-v7:23.0.2'
+    compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.github.clans:fab:1.6.3'
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
-    compile project(':volley')
 }
