@@ -8,4 +8,6 @@
     <color name="secondaryText">#727272</color>
     <color name="dividerColor">#B6B6B6</color>
 
+    <color name="colorFAB">#FF4040</color>
+    <color name="colorFABPressed">#ee3030</color>
 </resources>

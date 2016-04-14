@@ -3,16 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="40dp"
+        android:orientation="vertical"
     tools:context=".activitys.SplashScreenActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/image"
+        android:src="@drawable/ono_splash8"
         android:layout_gravity="center_horizontal"
-        />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

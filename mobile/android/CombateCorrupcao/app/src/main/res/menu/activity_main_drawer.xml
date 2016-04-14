@@ -3,21 +3,25 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/Maps"
+            android:icon="@drawable/ic_map_black_24dp"
+            android:title="Mapa" />
+        <item
             android:id="@+id/Convenios"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_monetization_on_black_24dp"
             android:title="Convênios" />
         <item
             android:id="@+id/Denuncie"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_report_problem_black_24dp"
             android:title="Denúncie!" />
         <item
             android:id="@+id/Estatisticas"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_show_chart_black_24dp"
             android:title="Gráficos" />
 
     </group>
 
-    <item>
+   <!-- <item>
         <menu>
             <item
                 android:id="@+id/Configuracoes"
@@ -28,6 +32,6 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="Sobre" />
         </menu>
-    </item>
+    </item>-->
 
 </menu>
