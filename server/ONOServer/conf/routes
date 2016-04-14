@@ -15,6 +15,10 @@ GET			/extractor/localizacao		controllers.ExtractorController.processaLocalizaca
 ###################
 #Páginas normais
 ###################
+GET		/video			controllers.Application.video()
+GET		/fonte			controllers.Application.source()
+
+
 GET     /                           controllers.Application.index()
 
 GET		/cep/:cep		controllers.Application.showDetalhes(cep: String)

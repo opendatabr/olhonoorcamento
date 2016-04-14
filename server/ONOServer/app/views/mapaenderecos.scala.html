@@ -49,7 +49,7 @@ function initMap() {
 	
 		google.maps.event.addListener(marker@index, 'click', function() {
 			infowindow.setContent(						 
-				 '<p><b>@item.getTotal()</b><br>'+
+				 '<p><b>Total Recebido: R$ @util.Formatador.getDoubleAsMoney(item.getTotal())</b><br>'+
 				 'Endereço: @item.getEndereco()<br>'+
 				 '<a href="@routes.Application.showDetalhes(item.getCep())" target="_top">Mais Informações</a></p>'
 			)

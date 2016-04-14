@@ -20,6 +20,14 @@ import views.html.*;
 
 public class Application extends Controller {
   
+	public static Result video() {
+		return redirect("https://youtu.be/VXREIaLwt3Q");
+	}
+	
+	public static Result source() {
+		return redirect("https://github.com/opendatabr/olhonoorcamento");
+	}
+	
 	@Transactional
 	public static Result index() {
 		String [] cidades = {"São Paulo, SP", "Rio de Janeiro, RJ", "Salvador, BA", "Brasília, DF", "Fortaleza, CE", 
