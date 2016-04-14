@@ -3,9 +3,9 @@ package controllers;
 import java.util.Date;
 import java.util.List;
 
+import models.EnderecoPagamento;
 import models.Municipio;
 import models.PlanoAplicacao;
-import models.util.EnderecoPagamento;
 import play.*;
 import play.db.jpa.Transactional;
 import play.mvc.*;

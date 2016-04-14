@@ -16,8 +16,8 @@ package controllers;
 
 import java.util.List;
 
+import models.EnderecoPagamento;
 import models.Municipio;
-import models.util.EnderecoPagamento;
 import play.Logger;
 import play.db.jpa.Transactional;
 import play.mvc.*;
@@ -31,7 +31,7 @@ public class MapController extends Controller {
 		 List<EnderecoPagamento> enderecos = ConvenioService.buscaEnderecos(estado, cidade);
 		 Municipio m = MunicipioService.getMunicipio(estado, cidade);
 		 
-		 enderecos = enderecos.subList(0, 10);
+		 //enderecos = enderecos.subList(0, 10);
 		 
 		return ok(views.html.mapaenderecos.render(m, enderecos));
 	}

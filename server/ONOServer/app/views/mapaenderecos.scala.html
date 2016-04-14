@@ -21,37 +21,54 @@
 function initMap() {
 	var map = new google.maps.Map(document.getElementById('map'), {
 	  zoom: 13,
+	  mapTypeId: google.maps.MapTypeId.ROADMAP,
 	  center: {lat: @municipio.getLatitude(), lng: @municipio.getLongitude()}
 	});
 	var geocoder = new google.maps.Geocoder();
-	@for(end <- enderecos){
-	geocodeAddress(geocoder, map, "@end.getEnderecoAjustado()");
+	
+	if (navigator.geolocation) {
+	     navigator.geolocation.getCurrentPosition(function (position) {
+	         userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	         
+			var meuLocal = new google.maps.Marker({
+				position: initialLocation,
+				map: map,
+				title:"Você está aqui!",
+				icon:"@routes.Assets.at("img/iconperson5.png")"
+			});
+	         
+	     });
+	 }
+	
+	@for((item, index) <- enderecos.zipWithIndex){
+		var marker@index = new google.maps.Marker({
+			position: new google.maps.LatLng(@item.getLatitude(), @item.getLongitude()),
+			map: map,
+			title:"@item.getEndereco() + @item.getTotal()"
+		});
+	
+		google.maps.event.addListener(marker@index, 'click', function() {
+			infowindow.setContent(						 
+				 '<p><b>@item.getTotal()</b><br>'+
+				 'Endereço: @item.getEndereco()<br>'+
+				 '<a href="" target="_top">Mais Informações</a></p>'
+			)
+			infowindow.open(map, marker@index);
+		});
 	}
+	
+	var infowindow = new google.maps.InfoWindow({
+	});
+	
+	directionsDisplay = new google.maps.DirectionsRenderer();
+	directionsDisplay.setMap(map);
+	
 }
 
-@*
-Aqui eu vou passar também como parâmetro o cep, e o resultado eu vou mandar para o servidor
-salvar, no cep, o endereço certinho e a geolocalização. por aqui são 25 mil por dia, muito melhor
-do que os 2500 oficiais ;)
-*@
-function geocodeAddress(geocoder, resultsMap, address) {
-  @*var address = document.getElementById('address').value;*@
-  geocoder.geocode({'address': address}, function(results, status) {
-    if (status === google.maps.GeocoderStatus.OK) {
-    	console.log(results[0]);
-      resultsMap.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
-        map: resultsMap,
-        position: results[0].geometry.location
-      });
-    } else {
-      alert('Geocode was not successful for the following reason: ' + status);
-    }
-  });
-}
+
 
 </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=KEY_HERE&signed_in=true&callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTL1ND473lcA85N1LXOkGErd6HQquQzVw&signed_in=true&callback=initMap"
         async defer></script>
   </body>
 </html>
