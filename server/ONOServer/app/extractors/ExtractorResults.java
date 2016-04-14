@@ -51,5 +51,14 @@ public class ExtractorResults {
 				"Tempo: " + getTempo() + newline;
 		
 	}
+
+	public void add(ExtractorResults erInner) {
+		if (erInner != null){
+			this.registros += erInner.registros;
+			this.acertos += erInner.acertos;
+			this.erros += erInner.erros;
+			this.pulados += erInner.pulados;
+		}
+	}
 	
 }

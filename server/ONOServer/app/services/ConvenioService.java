@@ -2,10 +2,13 @@ package services;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import play.Logger;
 import play.db.jpa.JPA;
 
+import models.Convenio;
+import models.EnderecoPagamento;
 import models.PlanoAplicacao;
-import models.util.EnderecoPagamento;
 
 public class ConvenioService {
 
@@ -22,155 +25,151 @@ public class ConvenioService {
 	}
 
 	public static List<EnderecoPagamento> buscaEnderecos(String estado, String cidade) {
-		String query = "SELECT cep, endereco, cidade, uf, sum(valorTotal) as total FROM PlanoAplicacao " + 
-				"WHERE numConvenio > 0 AND cidade = :cidade AND uf = :estado " +
-				"GROUP BY cep " + 
-				"ORDER BY 5 DESC";
+		String query = "FROM EnderecoPagamento " + 
+				"WHERE cidade = :cidade AND estado = :estado " +
+				"ORDER BY total DESC";
 		
-		List<Object> resultList = JPA.em().createNativeQuery(query)
+		List<EnderecoPagamento> resultList = JPA.em().createQuery(query)
 				.setParameter("cidade", cidade)
 				.setParameter("estado", estado)
 				.getResultList();
 		
-		List<EnderecoPagamento> valores = new ArrayList<EnderecoPagamento>();
-		EnderecoPagamento valor;
-		
-		for (Object result : resultList) {
-		    Object[] items = (Object[]) result;
-		    valor = new EnderecoPagamento((String)items[0], (String)items[1], (String)items[2], 
-		    		(String)items[3], (Double)items[4]);
-		    if (valor.getTotal() > 0){
-		    	valores.add(valor);
-		    }
-		}
-		
-		return valores;
+		return resultList;
 	}
 
 	public static List<EnderecoPagamento> buscaEnderecosSemLocalizacao(String estado, String cidade) {
-		String query = "SELECT cep, endereco, cidade, uf, sum(valorTotal) as total FROM PlanoAplicacao " + 
-				"WHERE numConvenio > 0 AND cidade = :cidade AND uf = :estado " +
-				" AND latitude = 0 " + 
-				" GROUP BY cep " + 
-				"ORDER BY 5 DESC";
+		String query = "FROM EnderecoPagamento " + 
+				"WHERE cidade = :cidade AND estado = :estado " +
+				"AND latitude = 0 " +
+				"ORDER BY total DESC";
 		
-		List<Object> resultList = JPA.em().createNativeQuery(query)
+		List<EnderecoPagamento> resultList = JPA.em().createQuery(query)
 				.setParameter("cidade", cidade)
 				.setParameter("estado", estado)
 				.getResultList();
 		
-		List<EnderecoPagamento> valores = new ArrayList<EnderecoPagamento>();
-		EnderecoPagamento valor;
-		
-		for (Object result : resultList) {
-		    Object[] items = (Object[]) result;
-		    valor = new EnderecoPagamento((String)items[0], (String)items[1], (String)items[2], 
-		    		(String)items[3], (Double)items[4]);
-		    if (valor.getTotal() > 0){
-		    	valores.add(valor);
-		    }
-		}
-		
-		return valores;
+		return resultList;
 	}
 	
 	public static List<EnderecoPagamento> buscaEnderecos(String estado) {
-		String query = "SELECT cep, endereco, cidade, uf, sum(valorTotal) as total FROM PlanoAplicacao " + 
-				"WHERE numConvenio > 0 AND uf = :estado " +
-				"GROUP BY cep " + 
-				"ORDER BY 5 DESC";
+		String query = "FROM EnderecoPagamento " + 
+				"WHERE estado = :estado " +
+				"ORDER BY total DESC";
 		
-		List<Object> resultList = JPA.em().createNativeQuery(query)
+		List<EnderecoPagamento> resultList = JPA.em().createQuery(query)
 				.setParameter("estado", estado)
 				.getResultList();
 		
-		List<EnderecoPagamento> valores = new ArrayList<EnderecoPagamento>();
-		EnderecoPagamento valor;
-		
-		for (Object result : resultList) {
-		    Object[] items = (Object[]) result;
-		    valor = new EnderecoPagamento((String)items[0], (String)items[1], (String)items[2], 
-		    		(String)items[3], (Double)items[4]);
-		    if (valor.getTotal() > 0){
-		    	valores.add(valor);
-		    }
-		}
-		
-		return valores;
+		return resultList;
 	}
 	
 	public static List<EnderecoPagamento> buscaEnderecosSemLocalizacao(String estado) {
-		String query = "SELECT cep, endereco, cidade, uf, sum(valorTotal) as total FROM PlanoAplicacao " + 
-				"WHERE numConvenio > 0 AND uf = :estado " +
-				" AND latitude = 0 " + 
-				"GROUP BY cep " + 
-				"ORDER BY 5 DESC";
+		String query = "FROM EnderecoPagamento " + 
+				"WHERE estado = :estado " +
+				"AND latitude = 0 " +
+				"ORDER BY total DESC";
 		
-		List<Object> resultList = JPA.em().createNativeQuery(query)
+		List<EnderecoPagamento> resultList = JPA.em().createQuery(query)
 				.setParameter("estado", estado)
 				.getResultList();
 		
-		List<EnderecoPagamento> valores = new ArrayList<EnderecoPagamento>();
-		EnderecoPagamento valor;
-		
-		for (Object result : resultList) {
-		    Object[] items = (Object[]) result;
-		    valor = new EnderecoPagamento((String)items[0], (String)items[1], (String)items[2], 
-		    		(String)items[3], (Double)items[4]);
-		    if (valor.getTotal() > 0){
-		    	valores.add(valor);
-		    }
-		}
-		
-		return valores;
+		return resultList;
 	}
 	
 	public static List<EnderecoPagamento> buscaEnderecos() {
-		String query = "SELECT cep, endereco, cidade, uf, sum(valorTotal) as total FROM PlanoAplicacao " + 
-				"WHERE numConvenio > 0 " +
-				"GROUP BY cep " + 
-				"ORDER BY 5 DESC";
+		String query = "FROM EnderecoPagamento " + 
+				"ORDER BY total DESC";
 		
-		List<Object> resultList = JPA.em().createNativeQuery(query)
+		List<EnderecoPagamento> resultList = JPA.em().createQuery(query)
 				.getResultList();
 		
-		List<EnderecoPagamento> valores = new ArrayList<EnderecoPagamento>();
-		EnderecoPagamento valor;
-		
-		for (Object result : resultList) {
-		    Object[] items = (Object[]) result;
-		    valor = new EnderecoPagamento((String)items[0], (String)items[1], (String)items[2], 
-		    		(String)items[3], (Double)items[4]);
-		    if (valor.getTotal() > 0){
-		    	valores.add(valor);
-		    }
-		}
-		
-		return valores;
+		return resultList;
 	}
 	
 	public static List<EnderecoPagamento> buscaEnderecosSemLocalizacao() {
-		String query = "SELECT cep, endereco, cidade, uf, sum(valorTotal) as total FROM PlanoAplicacao " + 
-				"WHERE numConvenio > 0 " +
-				" AND latitude = 0 " + 
-				"GROUP BY cep " + 
-				"ORDER BY 5 DESC";
+		String query = "FROM EnderecoPagamento " + 
+				"AND latitude = 0 " +
+				"ORDER BY total DESC";
 		
-		List<Object> resultList = JPA.em().createNativeQuery(query)
+		List<EnderecoPagamento> resultList = JPA.em().createNativeQuery(query)
 				.getResultList();
 		
-		List<EnderecoPagamento> valores = new ArrayList<EnderecoPagamento>();
-		EnderecoPagamento valor;
+		return resultList;
+	}
+
+	public static int updateLocalizacaoEndereco(String cep, double lat, double lng) {
+		String query = "UPDATE PlanoAplicacao set latitude =:lat, longitude =:lng " +
+				"WHERE cep =:cep";
 		
-		for (Object result : resultList) {
-		    Object[] items = (Object[]) result;
-		    valor = new EnderecoPagamento((String)items[0], (String)items[1], (String)items[2], 
-		    		(String)items[3], (Double)items[4]);
-		    if (valor.getTotal() > 0){
-		    	valores.add(valor);
-		    }
+		try {
+			int updated = JPA.em().createNativeQuery(query)
+				.setParameter("lat", lat)
+				.setParameter("lng", lng)
+				.setParameter("cep", cep)
+				.executeUpdate();
+			return updated;
+		} catch (Exception e){
+			return 0;
 		}
-		return valores;
+		
+	}
+
+	public static int consolidaCepsEstado(String estado) {
+		String query = "INSERT INTO EnderecoPagamento " +
+			"(SELECT cep, cidade, endereco, uf, latitude, longitude, sum(valorTotal) " + 
+			"FROM planoaplicacao " + 
+			"WHERE numConvenio > 0 and uf=:estado " +
+			"GROUP BY cep) " +
+			"ON DUPLICATE KEY UPDATE cep = cep;";
+		
+		try {
+			int updated = JPA.em().createNativeQuery(query)
+				.setParameter("estado", estado)
+				.executeUpdate();
+			return updated;
+		} catch (Exception e){
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	public static List<Convenio> getConveniosExecutadosEm(String cep) {
+		String query = "FROM Convenio WHERE idConvenio IN " + 
+			"(select distinct idConvenio from PlanoAplicacao where cep =:cep) " +
+			"ORDER BY id DESC";
+		
+		try {
+			List<Convenio> result = JPA.em().createQuery(query)
+					.setParameter("cep", cep)
+					.getResultList();
+			return result;
+		} catch (Exception e){
+			Logger.error("Erro pegando os convenios do CEP selecionado: " + e.getMessage());
+			return new ArrayList<Convenio>();
+		}
+	}
+
+	public static EnderecoPagamento getEndereco(String cep) {
+		String query = "FROM EnderecoPagamento WHERE cep =:cep";
+			
+		List<EnderecoPagamento> results = JPA.em().createQuery(query)
+				.setParameter("cep", cep)
+				.getResultList();
+		if (results.isEmpty()){
+			return null;
+		} else {
+			return results.get(0);
+		}
+	}
+
+	public static List<PlanoAplicacao> getPlanosAplicacao(int idConvenio) {
+		String query = "FROM PlanoAplicacao WHERE idConvenio =:idConvenio";
+		
+		List<PlanoAplicacao> results = JPA.em().createQuery(query)
+				.setParameter("idConvenio", idConvenio)
+				.getResultList();
+		
+		return results;
 	}
 
 }

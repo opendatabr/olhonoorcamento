@@ -15,9 +15,14 @@ import models.PlanoAplicacao;
 import models.util.DateUtil;
 import play.Logger;
 import play.db.jpa.JPA;
+import services.ConvenioService;
 
 public class ConvenioExtractor {
 
+	private static final String[] estados = {"AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS",
+			"MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC",
+			"SP","SE","TO"};
+	
 	public static ExtractorResults processaConvenios() {
 		ExtractorResults erTotal = new ExtractorResults("##### Processando Convenios #####");
 		
@@ -353,6 +358,30 @@ public class ConvenioExtractor {
 		}
         String[] tokens = line.split(";(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
         return tokens;
+	}
+
+	public static ExtractorResults persisteEnderecos() {
+		ExtractorResults er = new ExtractorResults("Consolidando ceps dos estados");
+		for (int i = 0; i < estados.length; i++){
+			String estado = estados[i];
+			Logger.info("Processando " + estado + " - " + new Date());
+			int inseridos = ConvenioService.consolidaCepsEstado(estado);
+			if (inseridos == 0){
+				er.registros+=inseridos;
+				er.erros++;
+				return er;
+			}
+			
+			er.registros+=inseridos;
+			er.acertos+=inseridos;
+			
+			JPA.em().getTransaction().commit();
+			JPA.em().getTransaction().begin();
+			
+			Logger.info("Processado " + estado + ": " + inseridos + " inseridos - " + new Date());
+		}
+		
+		return er;
 	}
 
 }

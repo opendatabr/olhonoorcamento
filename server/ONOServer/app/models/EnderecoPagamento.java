@@ -1,16 +1,26 @@
-package models.util;
+package models;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class EnderecoPagamento {
 
+	@Id
 	private String cep;
+	@Column
 	private String endereco;
+	@Column
 	private String cidade;
+	@Column
 	private String estado;
+	@Column
 	private double total;
 	
+	@Column
 	double latitude;
+	@Column
 	double longitude;
 	
 	public EnderecoPagamento(){
@@ -89,7 +99,27 @@ public class EnderecoPagamento {
 		texto = texto.replace(".", " ");
 		texto = texto.replace("  ", " ");
 		texto = texto.trim();
-		texto += ", " + getCidade() + ", " + getEstado() + ", Brasil";
+		texto += ", " + getCidade() + ", " + getEstado();// + ", Brasil";
+		return texto;
+	}
+	
+	public String getEnderecoAjustado2(){
+		String texto = endereco.toLowerCase();
+		texto = texto.replace(getCidade().toLowerCase(), "");
+		texto = texto.replace(getEstado().toLowerCase(), "");
+		texto = texto.replace(getCep(), "");
+		texto = texto.replace("/", " ");
+		texto = texto.replace(",", " ");
+		texto = texto.replace("-", " ");
+		texto = texto.replace(".", " ");
+		texto = texto.replace("  ", " ");
+		texto = texto.replace("  ", " ");
+		texto = texto.trim();
+		try {
+			texto = texto.substring(0, texto.lastIndexOf(" "));
+		} catch (Exception e){}
+		texto = texto.trim();
+		texto += ", " + getCidade() + ", " + getEstado();// + ", Brasil";
 		return texto;
 	}
 	

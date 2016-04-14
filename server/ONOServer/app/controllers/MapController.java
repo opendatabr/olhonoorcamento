@@ -16,8 +16,8 @@ package controllers;
 
 import java.util.List;
 
+import models.EnderecoPagamento;
 import models.Municipio;
-import models.util.EnderecoPagamento;
 import play.Logger;
 import play.db.jpa.Transactional;
 import play.mvc.*;
@@ -31,16 +31,15 @@ public class MapController extends Controller {
 		 List<EnderecoPagamento> enderecos = ConvenioService.buscaEnderecos(estado, cidade);
 		 Municipio m = MunicipioService.getMunicipio(estado, cidade);
 		 
-		 enderecos = enderecos.subList(0, 10);
+		 //enderecos = enderecos.subList(0, 10);
 		 
 		return ok(views.html.mapaenderecos.render(m, enderecos));
 	}
 	
 	@Transactional
-	public static Result showMapAplicacao(String estado, String cidade, String endereco){
-		//Escola escola = new EducacaoService().getEscola(id);
-		//return ok(views.html.mapaescolaindividual.render(escola));
-		return TODO;
+	public static Result showMapEndereco(String cep){
+		EnderecoPagamento ep = ConvenioService.getEndereco(cep);
+		return ok(views.html.mapaenderecoindividual.render(ep));
 	}
 
 }

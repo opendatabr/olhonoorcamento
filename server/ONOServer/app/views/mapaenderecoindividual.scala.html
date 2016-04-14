@@ -1,8 +1,8 @@
-@(municipio: Municipio)(enderecos: List[EnderecoPagamento])
+@(item: EnderecoPagamento)
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Locais que receberam verbas em @municipio.getNomeMunicipio - @municipio.getSiglaEstado()</title>
+    <title>Localização de repasse de verba: @item.getEnderecoAjustado(), CEP: @item.getCep()</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
@@ -22,7 +22,7 @@ function initMap() {
 	var map = new google.maps.Map(document.getElementById('map'), {
 	  zoom: 13,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP,
-	  center: {lat: @municipio.getLatitude(), lng: @municipio.getLongitude()}
+	  center: {lat: @item.getLatitude(), lng: @item.getLongitude()}
 	});
 	var geocoder = new google.maps.Geocoder();
 	
@@ -40,22 +40,19 @@ function initMap() {
 	     });
 	 }
 	
-	@for((item, index) <- enderecos.zipWithIndex){
-		var marker@index = new google.maps.Marker({
-			position: new google.maps.LatLng(@item.getLatitude(), @item.getLongitude()),
-			map: map,
-			title:"@item.getEndereco() + R$ @util.Formatador.getDoubleAsMoney( item.getTotal() )"
-		});
-	
-		google.maps.event.addListener(marker@index, 'click', function() {
-			infowindow.setContent(						 
-				 '<p><b>@item.getTotal()</b><br>'+
-				 'Endereço: @item.getEndereco()<br>'+
-				 '<a href="@routes.Application.showDetalhes(item.getCep())" target="_top">Mais Informações</a></p>'
-			)
-			infowindow.open(map, marker@index);
-		});
-	}
+	var marker = new google.maps.Marker({
+		position: new google.maps.LatLng(@item.getLatitude(), @item.getLongitude()),
+		map: map,
+		title:"@item.getEndereco() + R$ @util.Formatador.getDoubleAsMoney( item.getTotal() )"
+	});
+
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.setContent(						 
+			 '<p><b>@item.getTotal()</b><br>'+
+			 'Endereço: @item.getEndereco()<br>'
+		)
+		infowindow.open(map, marker);
+	});
 	
 	var infowindow = new google.maps.InfoWindow({
 	});

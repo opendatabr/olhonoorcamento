@@ -1,12 +1,16 @@
 package controllers;
 
+import static play.data.Form.form;
+
 import java.util.Date;
 import java.util.List;
 
+import models.Convenio;
+import models.EnderecoPagamento;
 import models.Municipio;
 import models.PlanoAplicacao;
-import models.util.EnderecoPagamento;
 import play.*;
+import play.data.DynamicForm;
 import play.db.jpa.Transactional;
 import play.mvc.*;
 import services.ConvenioService;
@@ -35,14 +39,26 @@ public class Application extends Controller {
         return ok(views.html.mostracidade.render(cidade, estado, enderecos));
     }
     
+	@Transactional
+    public static Result showDetalhes(String cep) {
+		List<Convenio> convenios = ConvenioService.getConveniosExecutadosEm(cep);
+		EnderecoPagamento endereco = ConvenioService.getEndereco(cep);
+		
+		return ok(views.html.detalheEndereco.render(endereco, convenios));
+	}
+	
     @Transactional
     public static Result showConvenio(String id) {
         return TODO;
     }
     
     @Transactional
-    public static Result buscaCidade(String id) {
-        return TODO;
+    public static Result buscaCidade() {
+    	DynamicForm dynamicForm = form().bindFromRequest();
+		String busca = dynamicForm.get("busca");
+    	
+    	List<Municipio> municipios = MunicipioService.buscaMunicipios(busca);
+    	return ok(views.html.buscabasicares.render("Resultado da busca por " + busca, municipios));
     }
     
     @Transactional

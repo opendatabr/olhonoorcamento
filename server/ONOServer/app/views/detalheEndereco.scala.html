@@ -1,0 +1,74 @@
+@(endereco: EnderecoPagamento)(convenios: List[Convenio])
+@title = {Olho no Orçamento} 
+
+@content = {
+<div class="col-md-12">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box" align="center">
+			<h2>Endereço do Pagamento</h2>
+				<iframe src="@routes.MapController.showMapEndereco(endereco.getCep())" width="100%" height="300px"></iframe><br>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box" align="center">
+			<h2>Os pagamentos a este endereço são relacionados aos seguintes convênios</h2>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="row">
+		@for(convenio <- convenios) {
+		<div class="col-md-6">
+			<div class="box">
+				<h2>Pagador: @convenio.getNomeOrgaoConcedente</h2>
+				<h2>Executor: @convenio.getNomeProponente()</h2>
+				Situação: @convenio.getSituacao()
+				<br>Endereço do Executor: @convenio.getEnderecoProponente()
+				<br>Data de início: @convenio.getDataInicioVigencia()
+				<br>Data fim: @convenio.getDataFimVigencia()
+				<br>Modalidade: @convenio.getModalidade()
+				<br>Justificativa: @convenio.getJustificativa()
+				<br>Quantidade de Aditivos: @convenio.getQtdAditivos()
+				<br>Quantidade de Prorrogações: @convenio.getQtdProrrogacao()
+				<br>Valor Global: @convenio.getValorGlobal()
+				<br>Valor Repassado pelo Governo Federal:@convenio.getValorRepasse()
+				<table data-toggle="table" data-page-size="5" data-search="true" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-cache="false">
+				    <thead>
+				        <tr>
+				            <th>Natureza</th>
+				            <th>Tipo</th>
+				            <th>Situação</th>
+				            <th>Valor Total</th>
+				            <th>Endereço</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				    	@for(item <- convenio.getPagamentos()) {
+				    	<tr>
+				    		<td>@item.getNomeNaturezaDespesa()</td>
+				    		<td>@item.getTipoDespesa()</td>
+				    		<td>@item.getSituacao()</td>
+				    		<td>R$ @util.Formatador.getDoubleAsMoney( item.getValorTotal() )</td>
+				    		<td>@item.getEndereco()</td>
+				    	</tr>
+				    	}
+				    </tbody>
+				</table>
+			</div>
+		</div>
+		}
+	</div>
+</div>
+<!--END PROFILE-->
+
+}
+
+@menuesquerda(title)(content)

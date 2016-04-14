@@ -21,6 +21,20 @@ public class ExtractorController extends Controller {
     }
 	
 	@Transactional
+	public static Result processaLocalizacao(){
+		ExtractorResults er = GoogleLocationService.processaLatLongEnderecos();
+		Logger.info(er.toString());
+		return ok(er.toString());
+	}
+	
+	@Transactional
+	public static Result processaLocalizacao(String estado){
+		ExtractorResults er = GoogleLocationService.processaLatLongEnderecos(estado);
+		Logger.info(er.toString());
+		return ok(er.toString());
+	}
+	
+	@Transactional
 	public static Result processaLatLongCidades(){
 		ExtractorResults er = new ExtractorResults("Processamento de latitude e longitude das cidades");
 		
@@ -29,6 +43,13 @@ public class ExtractorController extends Controller {
 		
 		return ok("Sem processamento ainda");
 		
+	}
+	
+	@Transactional
+	public static Result persisteEnderecos(){
+		ExtractorResults er = ConvenioExtractor.persisteEnderecos();
+		Logger.info(er.toString());
+		return ok(er.toString());
 	}
 	
 }
