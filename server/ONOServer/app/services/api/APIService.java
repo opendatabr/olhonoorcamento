@@ -69,6 +69,35 @@ public class APIService {
 	}
 	
 	@Transactional
+	public static List<HashMap<String,Object>> selectPlanoAplicacaoPorCep(String cep, String cidade, String uf){
+		String query = "SELECT id, endereco, nomeNaturezaDespesa "
+				+ "FROM PlanoAplicacao "
+				+ "WHERE uf = :uf AND cidade = :cidade "
+				+ "ORDER BY anoProposta DESC";
+    	List<Object> lo = JPA.em().createNativeQuery(query)
+    			.setParameter("uf", uf)
+    			.setParameter("cidade", cidade)
+    			.setMaxResults(250) // limitado por que retorna uma porrada de dados
+    			.getResultList();
+    	
+    	List<HashMap<String,Object>> listaResultado = new ArrayList<HashMap<String,Object>>();
+    	HashMap<String, Object> map = null;
+    	
+    	for (Object o : lo) {
+    		Object[] itens = (Object[]) o;
+    		map = new HashMap<String, Object>();
+			 
+			map.put("id", ((BigInteger)itens[0]).longValue());
+			map.put("endereco", (String)itens[1]);
+			map.put("nomeNaturezaDespesa", (String)itens[2]);
+			 
+			listaResultado.add(map);
+		}
+    	
+    	return listaResultado;
+	}
+	
+	@Transactional
 	public static HashMap<String,Object> selectDetalhesPlanoAplicacaoPorId(long id){
 		String query = "SELECT id, endereco, nomeNaturezaDespesa, uf, cidade, tipoDespesa, anoConvenio, "
 				+ "anoProposta, situacao, unidadeFornecimento, valorUnitario, valorTotal, qtdItems, "

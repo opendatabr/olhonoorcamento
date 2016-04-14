@@ -35,7 +35,6 @@ GET		/mapa/:estado/:cidade		controllers.MapController.showMapCidade(estado: Stri
 ## API ##
 GET		/api						controllers.api.APIController.index()
 GET		/api/mapa/					controllers.api.APIController.mapa()
-GET		/api/planoaplicacao/:id		controllers.api.APIController.planoAplicacao(id: Long)
 GET		/api/convenio/:id			controllers.api.APIController.convenio(id: Integer)
 
 # Map static resources from the /public folder to the /assets URL path

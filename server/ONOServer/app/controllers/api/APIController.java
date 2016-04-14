@@ -1,10 +1,15 @@
 package controllers.api;
 
 import static play.data.Form.form;
+
+import java.util.HashMap;
+
 import play.Logger;
 import play.data.DynamicForm;
 import play.db.jpa.Transactional;
 import play.mvc.*;
+import services.ConvenioService;
+import services.MunicipioService;
 import services.api.APIService;
 import util.AdminJson;
 
@@ -21,13 +26,21 @@ public class APIController extends Controller {
 		response().setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
 		try{			
 			DynamicForm dynamicForm = form().bindFromRequest();
-			String uf = (dynamicForm.get("uf") == null || dynamicForm.get("uf").trim().isEmpty())? null : dynamicForm.get("uf");
+			String estado = (dynamicForm.get("estado") == null || dynamicForm.get("estado").trim().isEmpty())? null : dynamicForm.get("estado");
 			String cidade = (dynamicForm.get("cidade") == null || dynamicForm.get("cidade").trim().isEmpty())? null : dynamicForm.get("cidade");
-
-			if(cidade != null && uf != null){
-				return ok(AdminJson.getObject(APIService.selectPlanoAplicacaoPorCidade(cidade, uf), "PlanoAplicacao"));
-			}else if(uf != null){
-				return ok(AdminJson.getObject(APIService.selectPlanoAplicacaoPorEstado(uf), "PlanoAplicacao"));
+			String cep = (dynamicForm.get("cep") == null || dynamicForm.get("cep").trim().isEmpty())? null : dynamicForm.get("cep");
+			
+			if(cep != null && cidade != null && estado != null){
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("Convenios", ConvenioService.getConveniosExecutadosEm(cep));
+				map.put("Endereco", ConvenioService.getEndereco(cep));
+				return ok(AdminJson.getObject(map, "Pagamento"));
+				
+			}else if(cidade != null && estado != null){
+				return ok(AdminJson.getObject(ConvenioService.buscaEnderecos(estado, cidade), "EnderecoPagamentos"));
+				
+			}else if(estado != null){
+				return ok(AdminJson.getObject(MunicipioService.getMunicipios(estado), "Cidades"));
 			}
 		}catch(Exception e){
 			Logger.error("ERRO - APIController/mapa():\n"+ e.getMessage());
