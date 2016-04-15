@@ -41,6 +41,7 @@
 				<br><b>Quantidade de Prorrogações:</b> @convenio.getQtdProrrogacao()
 				<br><b>Valor Global:</b> R$ @util.Formatador.getDoubleAsMoney( convenio.getValorGlobal() ) 
 				<br><b>Valor Repassado pelo Governo Federal: </b>  R$ @util.Formatador.getDoubleAsMoney( convenio.getValorRepasse() )
+				<br><b><a href="https://www.convenios.gov.br/siconv/ConsultarProposta/ResultadoDaConsultaDeConvenioSelecionarConvenio.do?sequencialConvenio=@convenio.getNumConvenio()&Usr=guest&Pwd=guest" target="_blank">Acesse a Página Oficial do Convenio</a></b>
 				<table data-toggle="table" data-page-size="5" data-search="true" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-cache="false">
 				    <thead>
 				        <tr>
