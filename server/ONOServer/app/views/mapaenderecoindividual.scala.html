@@ -18,7 +18,12 @@
     <div id="map"></div>
     
 <script>
+var directionsService;
+var userLocation;
+
 function initMap() {
+	directionsService = new google.maps.DirectionsService();
+	
 	var map = new google.maps.Map(document.getElementById('map'), {
 	  zoom: 13,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -36,6 +41,8 @@ function initMap() {
 				title:"Você está aqui!",
 				icon:"@routes.Assets.at("img/iconperson5.png")"
 			});
+			
+			calcRoute(@item.getLatitude(), @item.getLongitude());
 	         
 	     });
 	 }
@@ -52,6 +59,7 @@ function initMap() {
 			 'Endereço: @item.getEndereco()<br>'
 		)
 		infowindow.open(map, marker);
+		calcRoute(@item.getLatitude(), @item.getLongitude());
 	});
 	
 	var infowindow = new google.maps.InfoWindow({
@@ -62,6 +70,21 @@ function initMap() {
 	
 }
 
+function calcRoute(lat,lgt) {
+	  var start = userLocation;
+	  var end = new google.maps.LatLng(lat,lgt);
+	  
+	  var request = {
+	      origin:start,
+	      destination:end,
+	      travelMode: google.maps.TravelMode.DRIVING
+	  };
+	  directionsService.route(request, function(response, status) {
+	    if (status == google.maps.DirectionsStatus.OK) {
+	      directionsDisplay.setDirections(response);
+	    }
+	  });
+}
 
 
 </script>

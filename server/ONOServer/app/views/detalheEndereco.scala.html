@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="box" align="center">
-			<h2>Endereço do Pagamento</h2>
+			<h2>Endereço do Pagamento: @endereco.getEnderecoAjustado</h2>
 				<iframe src="@routes.MapController.showMapEndereco(endereco.getCep())" width="100%" height="300px"></iframe><br>
 			</div>
 		</div>
@@ -30,16 +30,17 @@
 			<div class="box">
 				<h2>Pagador: @convenio.getNomeOrgaoConcedente</h2>
 				<h2>Executor: @convenio.getNomeProponente()</h2>
-				Situação: @convenio.getSituacao()
-				<br>Endereço do Executor: @convenio.getEnderecoProponente()
-				<br>Data de início: @convenio.getDataInicioVigencia()
-				<br>Data fim: @convenio.getDataFimVigencia()
-				<br>Modalidade: @convenio.getModalidade()
-				<br>Justificativa: @convenio.getJustificativa()
-				<br>Quantidade de Aditivos: @convenio.getQtdAditivos()
-				<br>Quantidade de Prorrogações: @convenio.getQtdProrrogacao()
-				<br>Valor Global: @convenio.getValorGlobal()
-				<br>Valor Repassado pelo Governo Federal:@convenio.getValorRepasse()
+				<b>Situação:</b> @convenio.getSituacao()
+				<br><b>Endereço do Executor:</b> @convenio.getEnderecoProponente()
+				<br><b>Data de início:</b> @models.util.DateUtil.getFormattedDate(convenio.getDataInicioVigencia())
+				<br><b>Data fim:</b> @models.util.DateUtil.getFormattedDate(convenio.getDataFimVigencia())
+				<br><b>Modalidade:</b> @convenio.getModalidade()
+				<br><b>Objeto:</b> @convenio.getObjeto()...
+				<br><b>Justificativa:</b> @convenio.getJustificativa()...
+				<br><b>Quantidade de Aditivos:</b> @convenio.getQtdAditivos()
+				<br><b>Quantidade de Prorrogações:</b> @convenio.getQtdProrrogacao()
+				<br><b>Valor Global:</b> R$ @util.Formatador.getDoubleAsMoney( convenio.getValorGlobal() ) 
+				<br><b>Valor Repassado pelo Governo Federal: </b>  R$ @util.Formatador.getDoubleAsMoney( convenio.getValorRepasse() )
 				<table data-toggle="table" data-page-size="5" data-search="true" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-cache="false">
 				    <thead>
 				        <tr>
