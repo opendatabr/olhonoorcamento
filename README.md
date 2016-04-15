@@ -11,7 +11,7 @@ a) Tradução dos dados de convênios e transferências para uma linguagem acess
 
 b) Possibilidade de seleção, por parte do cidadão, das informações que impactem seu cotidiano: através do detalhamento dos convênios e pagamentos de convênios nas suas proximidades;
 
-c) c) Aumento da participação popular no acompanhamento e fiscalização da execução física das políticas públicas implementadas por meio de convênios e transferências: visto que o cidadão está próximo ao local de execução do convênio, o mesmo pode detectar alguma irregularidade e realizar uma denúncia;
+c) Aumento da participação popular no acompanhamento e fiscalização da execução física das políticas públicas implementadas por meio de convênios e transferências: visto que o cidadão está próximo ao local de execução do convênio, o mesmo pode detectar alguma irregularidade e realizar uma denúncia;
 
 d) Utilização, por parte governo, da informação coletiva a ser gerada pela solução: ao permitir a agregação de denúncias realizadas pelos cidadãos e encaminha-las aos órgãos competentes.
 
@@ -19,7 +19,7 @@ O projeto começou a ser desenvolvido em 10 de abril de 2016, e é baseado na ex
 
 O sistema tem 3 branches:
 - kellyton: de responsabilidade de Kellyton Brito, contém o código do servidor e a versão web
-- api: de responsabilidade de Bruno Marques, publica uma API para ser utilizada por clientes mobile
+- api: de responsabilidade de Bruno Marques, publica uma API para ser utilizada por clientes mobile (e por que não, por outros desenvolvedores?)
 - master*: utilizada por Angélica Lopes para um protótipo de aplicação Android. Ainda estamos decidindo se vamos fazer nativo ou não
 
 *Ok, sabemos que a master não deveria ser usada assim, mas começamos o projeto a pouco tempo e Angélica não tem muita experiência com o github. Melhoraremos em breve.
