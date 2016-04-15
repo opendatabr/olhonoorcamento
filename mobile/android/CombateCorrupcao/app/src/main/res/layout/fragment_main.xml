@@ -10,11 +10,16 @@
     tools:context="projeto.combatecorrupcao.fragments.MainFragment"
     tools:showIn="@layout/app_bar_main">
 
+
+
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         class="com.google.android.gms.maps.SupportMapFragment" />
+
+
+
 </RelativeLayout>
     <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
