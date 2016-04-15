@@ -1,7 +1,7 @@
-# Olho no Orçamento
+﻿# Olho no Orçamento
 Sistema de tratamento, publicação e visualização dos dados do orçamento federal, em especial Convênios e Transferências
 
-Protótipo do sistema FUNCIONANDO em: http://ono.dadosabertosbr.org
+Protótipo do sistema FUNCIONANDO em: http://ono.dadosabertosbr.org .
 Vídeo descritivo do projeto em: http://ono.dadosabertosbr.org/video
 
 *ATENÇÃO*: a branch principal do projeto é KELLYTON
@@ -24,11 +24,15 @@ O sistema tem 3 branches:
 
 *Ok, sabemos que a master não deveria ser usada assim, mas começamos o projeto a pouco tempo e Angélica não tem muita experiência com o github. Melhoraremos em breve.
 
-# Para executar
+# Executar / testar a aplicação cliente
+Acesse http://ono.dadosabertosbr.org
+
+# Para fazer deploy do servidor.
 Requisitos:
-	- Java 7 ou superior
-	- Play framework 2.1.3 ou superior (https://www.playframework.com/)
-	- Executar: Acessar a pasta do servidor: /server/ONOServer e rodar: "play start". Irá subir na porta 9000
+- Java 7 ou superior
+- Play framework 2.1.3 ou superior (https://www.playframework.com/)
+- Executar: Acessar a pasta do servidor: /server/ONOServer e rodar: "play start". Irá subir na porta 9000
+
 Falta o banco de dados. Para gerar o banco é necessário baixar as tabelas de convênios e pagamentos (01_ConveniosProgramas.csv e 21_PlanoAplicacaoPT.csv), 
 descomentar e rodar os métodos do ExtractorController de forma semi assistida. Também é necessário gerar chaves das API's do google, que possuem limitação de acesso diário.
 Conhecimento de parsing e da Google Geocode API é necessário.
