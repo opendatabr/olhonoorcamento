@@ -1,4 +1,4 @@
-﻿﻿# Olho no Orçamento
+﻿# Olho no Orçamento
 Sistema de tratamento, publicação e visualização dos dados do orçamento federal, em especial Convênios e Transferências
 
 Protótipo do sistema FUNCIONANDO em: http://ono.dadosabertosbr.org
@@ -6,6 +6,7 @@ Protótipo do sistema FUNCIONANDO em: http://ono.dadosabertosbr.org
 Vídeo descritivo do projeto em: http://ono.dadosabertosbr.org/video
 
 Este é o repositório de proposta do sistema Olho No Orçamento, que foi submetido para a Hackathon de Combate a Corrupção promovida pelo Ministério da Justiça. Os objetivos do projeto são:
+
 a) Tradução dos dados de convênios e transferências para uma linguagem acessível ao cidadão: Principalmente ao mostrar ao cidadão gastos que foram executados próximos ao mesmo, com localização no mapa;
 
 b) Possibilidade de seleção, por parte do cidadão, das informações que impactem seu cotidiano: através do detalhamento dos convênios e pagamentos de convênios nas suas proximidades;
